@@ -8,8 +8,12 @@ resource "aws_instance" "web" {
   root_block_device {
     volume_size = 20
   }
-
   tags = {
     Name = "Web-Server"
   }
+lifecycle {
+ create_before_delivery = true
+ prevent_destroy = true
+ ignore_changes = [tags, instance_name]
+}
 }
